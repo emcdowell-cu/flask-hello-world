@@ -5,7 +5,7 @@ import psycopg2
 
 @app.route('/')
 def hello_world():
-    return 'Hello, Worldfrom Elsa McDowell in 3308.'
+    return 'Hello, World from Elsa McDowell in 3308.'
 
 
 @app.route('/db_test')
@@ -45,4 +45,24 @@ def insert():
         ''')
     conn.commit()
     conn.close()
-    return 'Basketball table populated successfully'
+    return 'Basketball Table Populated'
+
+
+@app.route('/db_select')
+def select():
+    conn = psycopg2.connect("postgresql://emcdowell_db_user:TAAFXHs5Q6Zg07Xdoy8LJg197XOuh3DN@dpg-cqfsksdds78s73c50a6g-a/emcdowell_db")
+    cur = conn.cursor()
+    cur.execute('''
+        SELECT * FROM Basketball;
+        ''')
+    records = cur.fetchall()
+    conn.close()
+    response_string=""
+    response_string+="<table>"
+    for player in records:
+        response_string+="<tr>"
+        for info in player:
+            response_string+="<td>{}</td>".format(info)
+        response_string+="</tr>"
+    response_string+="</table>"
+    return response_string
