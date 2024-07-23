@@ -68,7 +68,7 @@ def select():
     return response_string
 
 @app.route('/db_drop')
-def insert():
+def drop():
     conn = psycopg2.connect("postgresql://emcdowell_db_user:TAAFXHs5Q6Zg07Xdoy8LJg197XOuh3DN@dpg-cqfsksdds78s73c50a6g-a/emcdowell_db")
     cur = conn.cursor()
     cur.execute('''
