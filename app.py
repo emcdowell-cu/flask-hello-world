@@ -29,7 +29,7 @@ def create():
     ''')
     conn.commit()
     conn.close()
-    return 'Basketball table created successfully'
+    return 'Basketball Table Successfully Created'
 
 @app.route('/db_insert')
 def insert():
@@ -66,3 +66,14 @@ def select():
         response_string+="</tr>"
     response_string+="</table>"
     return response_string
+
+@app.route('/db_drop')
+def insert():
+    conn = psycopg2.connect("postgresql://emcdowell_db_user:TAAFXHs5Q6Zg07Xdoy8LJg197XOuh3DN@dpg-cqfsksdds78s73c50a6g-a/emcdowell_db")
+    cur = conn.cursor()
+    cur.execute('''
+        DROP TABLE Basketball;
+        ''')
+    conn.commit()
+    conn.close()
+    return 'Basketball Table Successfully Dropped'
